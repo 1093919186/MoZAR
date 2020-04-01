@@ -1,0 +1,199 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MOZAR</title>
+    <script src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+     .wrong{
+            margin-left: 2px;
+            font-size:10px;
+            color:#ff0000;
+      	   font-weight:bold;
+        }
+        .correct{
+            margin-left: 2px;
+            font-size:10px;
+            color:#00ff00;
+        }
+    </style>
+</head>
+<body bgcolor="#f6f6f6" style="width: 100%;height: 100%" onload="check()">
+
+<img src="__ROOT__/public/images/登录页背景.jpg" style="width: 451px;height: 330px;position: absolute;top: 50%;margin-top: -165px;left: 25%;margin-left: -225px">
+<div style="width: 500px;height: 550px;background-color: #ffffff;position: absolute;border: 1px solid lightgrey;top: 50%;margin-top: -275px;right:35%;margin-right: -250px">
+    <img src="__ROOT__/public/images/logo.PNG">
+    <form name="form1" onsubmit="return check()">
+        <div style="margin-left: 30px;margin-top: 20px"><b style='font-family: "arial", "微软雅黑";'>账号：</b><input name="username" id="username" placeholder="请输入账号" type="text" style="width: 250px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 20px"><b style='font-family: "arial", "微软雅黑";'>密码：</b><input type="password" name="userpwd" id="password" placeholder="请输入密码" style="width: 250px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 20px"><b style='font-family: "arial", "微软雅黑";'>绑定银行卡：</b><input type="text" name="bankid" id="bank" placeholder="请输入银行卡号"  style="width: 201px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 20px"><b style='font-family: "arial", "微软雅黑";'>收货地址：</b><input type="text" name="addr" id="addres" placeholder="请输入收货地址" style="width: 218px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 20px"><b style='font-family: "arial", "微软雅黑";'>电话：</b><input type="text" name="telephone" id="phone" placeholder="请输入电话号码" style="width: 250px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>身高：</b><input type="text" name="height" style="width: 80px;height: 30px"><span style='font-family: "arial", "微软雅黑";font-weight: bold'>cm</span></div>
+        <div style="margin-left: 30px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>体重：</b><input type="text" name="weight" style="width: 80px;height: 30px"><span style='font-family: "arial", "微软雅黑";font-weight: bold'>kg</span></div>
+        <div style="margin-left: 30px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>性别：</b><input type="text" name="sex" style="width: 80px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";float: left'>验证：</b><input type="text" name="checkCode" id="yzm"  style="width: 80px;height: 30px;float: left"></div>
+        <div style="width: 80px;height: 30px;background-color: lightgrey;margin-top: 20px;float: left;margin-left: 20px;"><img id="myImg" src="__APP__/Login/showcode" onclick="changeImage()" style="cursor:pointer;"title="看不清换一张" alt="看不清换一张"  align="middle"/></div>
+        <input type="submit" style='width: 280px;height: 40px;background-color: #e03550;float: left;margin-left: 45px;margin-top: 20px;font-family: "arial", "微软雅黑";color: #ffffff;line-height: 40px;text-align: center;cursor: pointer;border: 1px solid #ffffff' value="注&nbsp;&nbsp;&nbsp;&nbsp;册">
+    </form>
+    <a href="__APP__/Login/index" style='float: left;width: 100px;margin-top: 10px;margin-left: 135px;text-align: center;color: #e03550;font-family: "arial", "微软雅黑"'>登录</a>
+</div>
+<script>
+var fobj = document.form1; //获取表单对象
+var uobj = document.getElementById("username"); //获取两个输入框对象
+var uspan = getSpan(uobj); //获取username后面的span标签对象
+var uobj1 = document.getElementById("bank");
+var uspan1 = getSpan(uobj1);
+var pobj = document.getElementById("password");
+var pspan = getSpan(pobj);
+var pobj1 = document.getElementById("addres");
+var pspan1 = getSpan(pobj1);
+var eobj = document.getElementById("phone");
+var espan = getSpan(eobj);
+var yobj = document.getElementById("yzm");
+var yspan = getSpan(yobj);
+var uflag = false; //用于记录用户名值是否正确
+var pflag = false;
+var yflag = false;
+var kflag = false;
+var dflag = false;
+function getSpan(obj){  //获取当前对象(obj)的下一个span
+    while(true){
+        if(obj.nodeName=="SPAN"){
+            return obj;
+        }else{
+            obj = obj.nextSibling; //下一个span
+        }
+    }
+}
+function check(){  //自定义函数check完成form表单验证和提交
+    uobj.onfocus = function(){
+        if(uobj.value==""){
+            uflag = false;
+        }
+    }
+    uobj.onblur = function(){
+        if(uobj.value==""){
+            uspan.innerHTML="用户名不能为空";
+            uspan.className = "wrong";
+            uflag = false;
+        }else if(uobj.value.length<6){
+            uspan.innerHTML="长度小于6";
+            uspan.className="wrong";
+            uflag = false;
+        }else{
+            uspan.innerHTML="正确";
+            uspan.className = "correct";
+            uflag = true;
+        }
+    }
+    uobj1.onblur = function(){
+        if(uobj1.value==""){
+            uspan1.innerHTML="卡号不能为空";
+            uspan1.className = "wrong";
+            kflag = false;
+        }else if(!isCorde(uobj1.value)){
+            uspan1.innerHTML="卡号不合法";
+            uspan1.className = "wrong";
+            kflag = false;
+        }else{
+            uspan1.innerHTML="正确";
+            uspan1.className = "correct";
+            kflag = true;
+        }
+    }
+    pobj.onfocus = function(){
+        if(pobj.value==""){
+            pflag = false;
+        }
+    }
+    pobj.onblur = function(){
+        if(pobj.value==""){
+            pspan.innerHTML="密码不能为空";
+            pspan.className = "wrong";
+            pflag = false;
+        }else if(pobj.value.length<6){
+            pspan.innerHTML="长度小于6";
+            pspan.className="wrong";
+            pflag = false;
+        }else{
+            pspan.innerHTML="正确";
+            pspan.className = "correct";
+            pflag = true;
+        }
+    }
+    pobj1.onblur = function(){
+        if(pobj1.value==""){
+            pspan1.innerHTML="地址不能为空";
+            pspan1.className = "wrong";
+            pflag = false;
+        }else{
+            pspan1.innerHTML="正确";
+            pspan1.className = "correct";
+            pflag = true;
+          }
+    }
+    eobj.onblur = function(){
+        if(eobj.value==""){
+            espan.innerHTML="电话不能为空";
+            espan.className = "wrong";
+            dflag = false;
+        }else if(!isPhone(eobj.value)){
+            espan.innerHTML="电话不合法";
+            espan.className = "wrong";
+            dflag = false;
+        }else{
+            espan.innerHTML="正确";
+            espan.className = "correct";
+            dflag = true;
+        }
+    }
+    yobj.onfocus = function(){
+        if(yobj.value==""){
+            yflag = false;
+        }
+    }
+    yobj.onblur = function(){
+        if(yobj.value==""){
+            yspan.innerHTML="验证码不能为空";
+            yspan.className = "wrong";
+            yflag = false;
+        }else{
+            yspan.innerHTML="";
+            yspan.className = "correct";
+            yflag = true;
+        }
+    }
+    if(uflag==true && pflag==true && dflag==true){
+        fobj.action="__APP__/Register/insert.html";
+        fobj.method="post";
+        fobj.submit();
+    }
+}
+function isPhone(s){
+	var patrn = /^1[34578]\d{9}$/;	
+	   if(!patrn.exec(s)){
+		return false;
+	   }else{
+		return true;
+	    }
+	}
+function isCorde(s){
+	var reg = /^(\d{16}|\d{19})$/;	
+	   if(!reg.exec(s)){
+		return false;
+	   }else{
+		return true;
+	    }
+	}	
+	
+
+function changeImage(){
+    document.getElementById("myImg").src="__APP__/Login/showcode?id="+new Date();
+}
+</script>
+</body>
+</html>

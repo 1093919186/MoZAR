@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>后台管理系统</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__ROOT__/public/css/Admin/admin.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/library/kindeditor-4.1.4/kindeditor-all-min.js"></script>
+    <script type="text/javascript">
+        var editor;
+        KindEditor.ready(function(e){
+            editor = e.create("[name=content]",{
+                width:"700px",
+                height:"260px"
+            });
+        });
+        //表单验证
+        function checkAdd()
+        {
+            if(document.frm.title.value == "")
+            {
+                alert("请输入新闻标题！");
+                document.frm.title.focus();
+                return false;
+            }
+            else if(editor.html() == "")
+            {
+                alert("请输入新闻内容！");
+                editor.focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<script>
+function search(){
+        var obj1 = document.form1;
+        var obj2 = document.getElementById('state');
+        if(obj2.value == '未收货'){
+           obj1.action="__APP__/Search/wsh";
+        }else if (obj2.value == '已收货'){
+            obj1.action="__APP__/Search/ysh";
+        }else if (obj2.value == '正在销售'){
+            obj1.action="__APP__/Search/zzxs";
+        }else if (obj2.value == '已售出'){
+           obj1.action="__APP__/Search/ysc";
+        }else if (obj2.value == '全部状态'){
+            obj1.action="__APP__/daishou/index";
+        }else{
+            return false ;
+        }
+}
+
+ </script>
+
+<body>
+    <!-- 网站的头 -->
+    <include file="Public:header" />
+    <!-- 当前位置 -->
+    <div class="locationDiv">&nbsp;: 后台管理 : 添加新闻</div>
+    <!-- 正文内容 -->
+    <div class="mainDiv clear">
+        <!-- 左侧树状列表 -->
+        <include file="Public:left" />
+        <!-- 右侧页面内容 -->
+        <div class="rightDiv">
+            <form name="form1" onsubmit="return search()" style="text-align:left:" method="POST">
+                <select name="state" id="state">
+                    <option value="未收货">未收货</option>
+                    <option value="已收货">已收货</option>
+                    <option value="正在销售" selected>正在销售</option>
+                    <option value="已售出">已售出</option>
+                    <option value="全部状态">全部状态</option>
+                </select>
+                <input type="submit" value="搜索">
+            </form>
+            <br>
+            <table border="1" align="center" width="750" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>代售单号</th>
+                    <th>代售点</th>
+                    <th>标题</th>
+                    <th>买时</th>
+                    <th>出售价格</th>
+                    <th>身高(厘米)</th>
+                    <th>体重(斤)</th>
+                    <th>内容</th>
+                    <th>手机号码</th>
+                    <th>银行卡号</th>
+                    <th>性别</th>
+                    <th>用户ID</th>
+                    <th>入手价格</th>
+                    <th>状态</th>
+                </tr>
+                <foreach name="arr" item="v" key="k">
+                    <tr>
+                        <td>{$v.id}</td>
+                        <td>{$v.province}</td>
+                        <td>{$v.name}</td>
+                        <td>{$v.buytime}</td>
+                        <td>{$v.saleprice}</td>
+                        <td>{$v.height}</td>
+                        <td>{$v.weight}</td>
+                        <td>{$v.result}</td>
+                        <td>{$v.link}</td>
+                        <td>{$v.bankid}</td>
+                        <td>{$v.sex}</td>
+                        <td>{$v.userid}</td>
+                        <td>{$v.buyprice}</td>
+                        <td>{$v.state}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="15"><a href="javascript:make({$v.id});">确认收货</a> |
+                            <a href="javascript:cancel({$v.id});">取消收货</a> |<a href="javascript:del({$v.id});">删除订单</a> |
+                            <a href="__APP__/Fabu/index/id/{$v.id}">发布产品</a> |
+                            <a href="__APP__/Daishou/send/id/{$v.id}">已发货</a>
+                        </td>
+                    </tr>
+                </foreach>
+                <tr>
+                    <td colspan="15">{$page}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function make(id){
+        $.ajax({
+            type:'get',
+            url:'__APP__/Daishou/make/id/'+id,
+            success:function(response){
+                alert(response);
+                window.location.reload();
+            }
+        });
+    }
+        function cancel(id){
+        $.ajax({
+            type:'get',
+            url:'__APP__/Daishou/cancel/id/'+id,
+            success:function(response){
+                alert(response);
+                 window.location.reload();
+            }
+        });
+    }
+       function del(id){
+        $.ajax({
+            type:'get',
+            url:'__APP__/Daishou/del/id/'+id,
+            success:function(response){
+                alert(response);
+                 window.location.reload();
+            }
+        });
+    }
+</script>

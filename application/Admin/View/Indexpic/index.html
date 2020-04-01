@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__ROOT__/public/css/Admin/admin.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/library/kindeditor-4.1.4/kindeditor-all-min.js"></script>
+    <script type="text/javascript">
+        var editor;
+        KindEditor.ready(function(e){
+            editor = e.create("[name=content]",{
+                width:"700px",
+                height:"260px"
+            });
+        });
+        //表单验证
+        function checkAdd()
+        {
+            if(document.frm.title.value == "")
+            {
+                alert("请输入新闻标题！");
+                document.frm.title.focus();
+                return false;
+            }
+            else if(editor.html() == "")
+            {
+                alert("请输入新闻内容！");
+                editor.focus();
+                return false;
+            }
+        }
+    </script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        h2{
+            color:brown;
+        }
+    </style>
+</head>
+<body>
+<!-- 网站的头 -->
+<include file="Public:header"/>
+<!-- 当前位置 -->
+<div class="locationDiv">&nbsp;: 后台管理 : 添加新闻</div>
+<!-- 正文内容 -->
+<div class="mainDiv clear">
+    <!-- 左侧树状列表 -->
+    <include file="Public:left"/>
+    <!-- 右侧页面内容 -->
+    <div class="rightDiv" style="overflow:auto;">
+        <h2>种类1</h2>
+            <table id="table_lunbo1" border="1px">
+                <tr class="tr_css">
+                    <th width="100px">ID</th>
+                    <th width="400px">图片</th>
+                    <th width="200px">描述</th>
+                    <th width="100px">品牌名称</th>
+                    <th width="150px">操作</th>
+                </tr>
+                <foreach name="rs1" item = "v" key="k">
+                <tr>
+                    <td>{$v['picid']}</td>
+                    <td><img src="__ROOT__/{$v['picpath']}" style="width:300px;height:100px;"></td>
+                    <td>{$v['des']}</td>
+                    <td>{$v.chiname}</a></td>
+                    <td><a class="button border-main" href="__APP__/Indexpic/modify/picid/{$v['picid']}"><span style="background-color: white;">修改</span></a>
+                    </td>
+                </tr>
+                </foreach>
+                </table>
+        <h2>种类2</h2>
+            <table id="table_lunbo1" border="1px">
+                <tr class="tr_css">
+                    <th width="100px">ID</th>
+                    <th width="400px">图片</th>
+                    <th width="200px">描述</th>
+                    <th width="100px">品牌名称</th>
+                    <th width="150px">操作</th>
+                </tr>
+                <foreach name="rs2" item = "v" key="k">
+                <tr>
+                    <td>{$v['picid']}</td>
+                    <td><img src="__ROOT__/{$v['picpath']}" style="width:300px;height:100px;"></td>
+                    <td>{$v['des']}</td>
+                    <td>{$v.chiname}</a></td>
+                    <td><a class="button border-main" href="__APP__/Indexpic/modify/picid/{$v['picid']}"><span style="background-color: white;">修改</span></a>
+                    </td>
+                </tr>
+                </foreach>
+                </table>
+
+        <h2>种类3</h2>
+            <table id="table_lunbo1" border="1px">
+                <tr class="tr_css">
+                    <th width="100px">ID</th>
+                    <th width="400px">图片</th>
+                    <th width="200px">描述</th>
+                    <th width="100px">品牌名称</th>
+                    <th width="150px">操作</th>
+                </tr>
+                <foreach name="rs3" item = "v" key="k">
+                <tr>
+                    <td>{$v['picid']}</td>
+                    <td><img src="__ROOT__/{$v['picpath']}" style="width:300px;height:100px;"></td>
+                    <td>{$v['des']}</td>
+                    <td>{$v.chiname}</a></td>
+                    <td><a class="button border-main" href="__APP__/Indexpic/modify/picid/{$v['picid']}"><span style="background-color: white;">修改</span></a>
+                    </td>
+                </tr>
+                </foreach>
+                </table>
+
+        <h2>种类4</h2>
+            <table id="table_lunbo1" border="1px">
+                <tr class="tr_css">
+                    <th width="100px">ID</th>
+                    <th width="400px">图片</th>
+                    <th width="200px">描述</th>
+                    <th width="100px">品牌名称</th>
+                    <th width="150px">操作</th>
+                </tr>
+                <foreach name="rs4" item = "v" key="k">
+                <tr>
+                    <td>{$v['picid']}</td>
+                    <td><img src="__ROOT__/{$v['picpath']}" style="width:300px;height:100px;"></td>
+                    <td>{$v['des']}</td>
+                    <td>{$v.chiname}</a></td>
+                    <td><a class="button border-main" href="__APP__/Indexpic/modify/picid/{$v['picid']}"><span style="background-color: white;">修改</span></a>
+                    </td>
+                </tr>
+                </foreach>
+                </table>
+
+</div>
+</body>
+</html>

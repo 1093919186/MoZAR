@@ -1,0 +1,529 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MOZAR</title>
+    <script src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        tr,td{
+            border: 1px solid lightgrey;
+            font-family: "arial", "微软雅黑";
+        }
+    </style>
+    <style>
+        body{font:12px/18px "宋体",arial,sans-serif;color:#585858;}
+
+        body,div,p,span,form,iframe,table,td,th,input,textarea,button,label,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6{margin:0;padding:0;}
+
+        h1,h2,h3,h4,h5,h6{font-size:100%; }
+
+        ul,ol,li,dl{list-style-type:none;}
+
+        em,i,dfn,cite,strong,small{font-style:normal;}
+
+        img{border:0;}
+
+        fieldset,button,input,select,option{vertical-align:middle;font:12px/18px "宋体",arial,sans-serif;}
+
+        table{border-collapse:collapse;border-spacing:0}
+
+        textarea{resize:none}
+
+        /* color */
+
+        a:link,a:visited{color:#575757;text-decoration:none;}
+
+        a:hover{color:#ef4165;text-decoration:none;}
+
+        a:active{color:#1d7400;}
+
+        /* clearfix */
+
+        .clearfix:after{ visibility:hidden; display:block; font-size:0; content:" "; clear:both; height:0;}
+
+        *html .clearfix{ zoom:1;}
+
+
+
+        .preview{width:400px; height:465px; margin:50px 0px 0px 10px;float: left}
+
+        /* smallImg */
+
+        .smallImg{position:relative; height:52px; margin-top:1px; background-color:#F1F0F0; padding:6px 5px; width:390px; overflow:hidden;float:left;}
+
+        .scrollbutton{width:14px; height:50px; overflow:hidden; position:relative; float:left; cursor:pointer; }
+
+        .scrollbutton.smallImgUp , .scrollbutton.smallImgUp.disabled{background:url(__ROOT__/public/images/d_08.png) no-repeat;}
+
+        .scrollbutton.smallImgDown , .scrollbutton.smallImgDown.disabled{background:url(__ROOT__/public/images/d_09.png) no-repeat; margin-left:375px; margin-top:-50px;}
+
+
+
+        #imageMenu {height:50px; width:360px; overflow:hidden; margin-left:0; float:left;}
+
+        #imageMenu li {height:50px; width:60px; overflow:hidden; float:left; text-align:center;}
+
+        #imageMenu li img{width:50px; height:50px;cursor:pointer;}
+
+        #imageMenu li#onlickImg img, #imageMenu li:hover img{ width:44px; height:44px; border:3px solid #959595;}
+
+        /* bigImg */
+
+        .bigImg{position:relative; float:left; width:400px; height:400px; overflow:hidden;}
+
+        .bigImg #midimg{width:400px; height:400px;}
+
+        .bigImg #winSelector{width:235px; height:210px;}
+
+        #winSelector{position:absolute; cursor:crosshair; filter:alpha(opacity=15); -moz-opacity:0.15; opacity:0.15; background-color:#000; border:1px solid #fff;}
+
+        /* bigView */
+
+        #bigView{position:absolute;border: 1px solid #959595; overflow: hidden; z-index:999;}
+
+        #bigView img{position:absolute;}
+
+    </style>
+    <script>
+        $(function(){
+
+
+            $('.图片').hover(function(){
+                $(this).css('opacity','1')
+            },function(){
+                $(this).css('opacity','0.7')
+            })
+            $('.buy').click(function(){
+                $('.inform').slideDown();
+            })
+            $('.close').click(function(){
+                $('.inform').slideUp();
+            })
+
+            $.windowbox = {
+//定义一个方法aa
+                Buy: function ($a) {
+                    $.ajax({
+                        type:"post",
+                        url:"__APP__/Content/ajax",
+                        "data":{
+                            "p":$a,
+                            "m":$("[name=password]").val()
+                        },
+                        "success":function(response,status,xhr){
+                            //若ajax.php输出值为1，则在ｐ标签总写入ｙｅｓ，
+                            //否则写入no
+                            if(response==1){
+                                $("#Title").html('购买成功');
+                                $("#Suc").slideDown();
+                            }else if(response==2){
+                                $("#Title").html('购买失败');
+                                $("#Suc").slideDown();
+                            }else {
+                                $("#Title").html('密码错误');
+                                $("#Suc").slideDown();
+                            }
+                        }
+                    });
+                },
+            }
+
+
+            /*公用弹窗*/
+            $('.关闭').click(function(){
+                $('.Suc').slideUp();
+            })
+            /*end*/
+        })
+    </script>
+</head>
+<body>
+<!--header  -->
+
+<include file="public:header" />
+
+<div style="width: 1200px;height: 600px;margin: 0 auto">
+    <div class="preview">
+
+        <div id="vertical" class="bigImg">
+
+            <img src="__ROOT__/{$image.imagepath}" width="400" height="400" alt="" id="midimg" />
+
+            <div style="display:none;" id="winSelector"></div>
+
+        </div><!--bigImg end-->
+
+        <div class="smallImg">
+
+            <div class="scrollbutton smallImgUp disabled"></div>
+
+            <div id="imageMenu">
+
+                <ul>
+
+                    <li id="onlickImg"><img src="__ROOT__/{$first.imagepath}" width="68" height="68" alt="洋妞"/></li>
+
+                    <foreach name="images" item="v">
+                    <li><img src="__ROOT__/{$v.imagepath}" width="68" height="68" alt="洋妞"/></li>
+                    </foreach>
+
+                </ul>
+
+            </div>
+
+            <div class="scrollbutton smallImgDown"></div>
+
+        </div><!--smallImg end-->
+
+        <div id="bigView" style="display:none;"><img width="800" height="800" alt="" src="" /></div>
+
+    </div>
+
+    <!--preview end-->
+    <div style="width: 600px;height: 500px;background-color: #ffffff;float: left;margin-top: 50px;margin-left: 30px">
+        <table style="width: 600px;height: 500px;border: 1px solid lightgrey;border-collapse:collapse;text-align: center;box-shadow: 3px 3px 3px lightgrey">
+            <tr><td colspan="2">{$proinfo.name}</td></tr>
+            <tr><td>卖家身高{$proinfo.height}</td><td>体重{$proinfo.weight}</td></tr>
+            <tr><td>买价<b style="color: #e03550">{$proinfo.buyprice}</b></td><td>卖价<b style="color: #e03550">{$proinfo.saleprice}</b></td></tr>
+            <tr><td>购买时间{$proinfo.buytime}</td><td>发布时间{$sendtime}</td></tr>
+            <tr><td><b style="color: #e03550">{$addr}</b></td><td><a class="buy" style="color:  #e03550;text-decoration: underline;cursor: pointer">点击购买</a></td></tr>
+            <tr><td colspan="2">{$proinfo.result}</td></tr>
+        </table>
+    </div>
+
+</div>
+
+<div style="width: 1200px;height: 30px;margin: 20px auto">
+    <b style='font-family: "arial", "微软雅黑";font-size: 20px;'>同&nbsp;类&nbsp;推&nbsp;荐</b><img src="__ROOT__/public/images/首页衣服/分界线.PNG" style="width: 1085px;margin-left: 18px">
+</div>
+
+<div style="width: 1200px;height: auto;margin: 30px auto;">
+    <foreach name="tuijian" item="v">
+    <a href="__APP__/Content/index/goodsid/{$v.id}"><div style="width: 270px;height: 400px;float: left;margin-right: 15px;margin-left: 15px;margin-bottom: 20px">
+        <img class="图片" src="__ROOT__/{$v.img.0.imagepath}" style="width: 270px;height: 340px;opacity: 0.7">
+        <p style='font-family: "arial", "微软雅黑";font-size: 15px;color: grey;margin-top: 10px'>{$v.name}</p>
+        <p style='font-family: "arial", "微软雅黑";font-size: 15px;color: grey;margin-top: 10px'>￥{$v.saleprice}</p>
+    </div></a>
+    </foreach>
+</div>
+
+
+<div style="width: 100%;height: 330px;background-color: #262728;margin-top: 20px;position: relative;float: left">
+    <div style="width: 1300px;height: 300px ;margin: 0px auto;">
+        <img src="__ROOT__/public/images/首页衣服/底部.PNG" style="float: left">
+        <img src="__ROOT__/public/images/首页衣服/底部2.PNG" style="float: left;margin-left: 50px">
+    </div>
+</div>
+
+<div style="width: 400px;height: 400px;background-color: #ffffff;position: fixed;left: 50%;margin-left: -200px;top: 50%;margin-top: -200px;display: none;" class="inform">
+    <img src="__ROOT__/public/images/logo.PNG" style="margin: 0px auto"><br>
+    <form method="post">
+        <div style="margin-left: 50px;margin-top: 15px"><b style='font-family: "arial", "微软雅黑";'>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</b><input type="text" style="width: 200px;height: 30px" value="{$user.truename}"></div>
+        <div style="margin-left: 50px;margin-top: 30px"><b style='font-family: "arial", "微软雅黑";'>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</b><input type="text" style="width: 200px;height: 30px" value="{$user.addr}"></div>
+        <div style="margin-left: 50px;margin-top: 30px"><b style='font-family: "arial", "微软雅黑";'>联系方式：</b><input type="text" style="width: 200px;height: 30px" value="{$user.telephone}"></div>
+        <div style="margin-left: 50px;margin-top: 30px"><b style='font-family: "arial", "微软雅黑";'>支付密码：</b><input type="password" style="width: 200px;height: 30px;" name="password"></div>
+        <input class="tijiao" type="button" onclick="$.windowbox.Buy({$proinfo.id})" style='width: 130px;height: 30px;margin-top: 20px;margin-left: 50px;background-color: #e03550;border: 1px solid #ffffff;color: #ffffff;font-family: "arial", "微软雅黑";font-weight: bold;cursor: pointer' value="提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交">
+        <a class="close" style='width: 100px;height: 30px;background-color: #e03550;float: right;line-height: 30px;text-align: center;color: #ffffff;font-family: "arial", "微软雅黑";margin-top: 20px;margin-right: 90px;font-weight: bold;cursor: pointer'>关&nbsp;&nbsp;闭</a>
+    </form>
+</div>
+
+
+<!--公用弹窗-->
+<div style="width: 300px;height: 300px;background-color: #ffffff;position: fixed;top: 50%;margin-top: -150px;left: 50%;margin-left: -150px;display: none" class="Suc" id="Suc">
+    <img src="__ROOT__/public/images/logo.PNG">
+    <div style="width: 280px;height: 100px;margin-left: 10px;margin-top: 20px;line-height: 100px;text-align: center">
+        <b style='font-family: "arial", "微软雅黑";font-size: 20px;color: #262728' id ="Title">发布成功</b>
+    </div>
+    <a class="关闭" style='font-family: "arial", "微软雅黑";float: right;margin-right: 10px;margin-top: 30px;color: #e03550;text-decoration: underline;cursor: pointer'>关闭</a>
+</div>
+<!--end-->
+</body>
+</html>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        // 图片上下滚动
+
+        var count = $("#imageMenu li").length - 5; /* 显示 6 个 li标签内容 */
+
+        var interval = $("#imageMenu li:first").width();
+
+        var curIndex = 0;
+
+
+
+        $('.scrollbutton').click(function(){
+
+            if( $(this).hasClass('disabled') ) return false;
+
+
+
+            if ($(this).hasClass('smallImgUp')) --curIndex;
+
+            else ++curIndex;
+
+
+
+            $('.scrollbutton').removeClass('disabled');
+
+            if (curIndex == 0) $('.smallImgUp').addClass('disabled');
+
+            if (curIndex == count-1) $('.smallImgDown').addClass('disabled');
+
+
+
+            $("#imageMenu ul").stop(false, true).animate({"marginLeft" : -curIndex*interval + "px"}, 600);
+
+        });
+
+        // 解决 ie6 select框 问题
+
+        $.fn.decorateIframe = function(options) {
+
+            if ($.browser.msie && $.browser.version < 7) {
+
+                var opts = $.extend({}, $.fn.decorateIframe.defaults, options);
+
+                $(this).each(function() {
+
+                    var $myThis = $(this);
+
+                    //创建一个IFRAME
+
+                    var divIframe = $("<iframe />");
+
+                    divIframe.attr("id", opts.iframeId);
+
+                    divIframe.css("position", "absolute");
+
+                    divIframe.css("display", "none");
+
+                    divIframe.css("display", "block");
+
+                    divIframe.css("z-index", opts.iframeZIndex);
+
+                    divIframe.css("border");
+
+                    divIframe.css("top", "0");
+
+                    divIframe.css("left", "0");
+
+                    if (opts.width == 0) {
+
+                        divIframe.css("width", $myThis.width() + parseInt($myThis.css("padding")) * 2 + "px");
+
+                    }
+
+                    if (opts.height == 0) {
+
+                        divIframe.css("height", $myThis.height() + parseInt($myThis.css("padding")) * 2 + "px");
+
+                    }
+
+                    divIframe.css("filter", "mask(color=#fff)");
+
+                    $myThis.append(divIframe);
+
+                });
+
+            }
+
+        }
+
+        $.fn.decorateIframe.defaults = {
+
+            iframeId: "decorateIframe1",
+
+            iframeZIndex: -1,
+
+            width: 0,
+
+            height: 0
+
+        }
+
+        //放大镜视窗
+
+        $("#bigView").decorateIframe();
+
+        //点击到中图
+
+        var midChangeHandler = null;
+
+
+
+        $("#imageMenu li img").bind("click", function(){
+
+            if ($(this).attr("id") != "onlickImg") {
+
+                midChange($(this).attr("src").replace("small", "mid"));
+
+                $("#imageMenu li").removeAttr("id");
+
+                $(this).parent().attr("id", "onlickImg");
+
+            }
+
+        }).bind("mouseover", function(){
+
+            if ($(this).attr("id") != "onlickImg") {
+
+                window.clearTimeout(midChangeHandler);
+
+                midChange($(this).attr("src").replace("small", "mid"));
+
+                $(this).css({ "border": "3px solid #959595" });
+
+            }
+
+        }).bind("mouseout", function(){
+
+            if($(this).attr("id") != "onlickImg"){
+
+                $(this).removeAttr("style");
+
+                midChangeHandler = window.setTimeout(function(){
+
+                    midChange($("#onlickImg img").attr("src").replace("small", "mid"));
+
+                }, 1000);
+
+            }
+
+        });
+
+        function midChange(src) {
+
+            $("#midimg").attr("src", src).load(function() {
+
+                changeViewImg();
+
+            });
+
+        }
+
+        //大视窗看图
+
+        function mouseover(e) {
+
+            if ($("#winSelector").css("display") == "none") {
+
+                $("#winSelector,#bigView").show();
+
+            }
+
+            $("#winSelector").css(fixedPosition(e));
+
+            e.stopPropagation();
+
+        }
+
+        function mouseOut(e) {
+
+            if ($("#winSelector").css("display") != "none") {
+
+                $("#winSelector,#bigView").hide();
+
+            }
+
+            e.stopPropagation();
+
+        }
+
+        $("#midimg").mouseover(mouseover); //中图事件
+
+        $("#midimg,#winSelector").mousemove(mouseover).mouseout(mouseOut); //选择器事件
+
+
+
+        var $divWidth = $("#winSelector").width(); //选择器宽度
+
+        var $divHeight = $("#winSelector").height(); //选择器高度
+
+        var $imgWidth = $("#midimg").width(); //中图宽度
+
+        var $imgHeight = $("#midimg").height(); //中图高度
+
+        var $viewImgWidth = $viewImgHeight = $height = null; //IE加载后才能得到 大图宽度 大图高度 大图视窗高度
+
+
+
+        function changeViewImg() {
+
+            $("#bigView img").attr("src", $("#midimg").attr("src").replace("mid", "big"));
+
+        }
+
+        changeViewImg();
+
+        $("#bigView").scrollLeft(0).scrollTop(0);
+
+        function fixedPosition(e) {
+
+            if (e == null) {
+
+                return;
+
+            }
+
+            var $imgLeft = $("#midimg").offset().left; //中图左边距
+
+            var $imgTop = $("#midimg").offset().top; //中图上边距
+
+            X = e.pageX - $imgLeft - $divWidth / 2; //selector顶点坐标 X
+
+            Y = e.pageY - $imgTop - $divHeight / 2; //selector顶点坐标 Y
+
+            X = X < 0 ? 0 : X;
+
+            Y = Y < 0 ? 0 : Y;
+
+            X = X + $divWidth > $imgWidth ? $imgWidth - $divWidth : X;
+
+            Y = Y + $divHeight > $imgHeight ? $imgHeight - $divHeight : Y;
+
+
+
+            if ($viewImgWidth == null) {
+
+                $viewImgWidth = $("#bigView img").outerWidth();
+
+                $viewImgHeight = $("#bigView img").height();
+
+                if ($viewImgWidth < 200 || $viewImgHeight < 200) {
+
+                    $viewImgWidth = $viewImgHeight = 800;
+
+                }
+
+                $height = $divHeight * $viewImgHeight / $imgHeight;
+
+                $("#bigView").width($divWidth * $viewImgWidth / $imgWidth);
+
+                $("#bigView").height($height);
+
+            }
+
+            var scrollX = X * $viewImgWidth / $imgWidth;
+
+            var scrollY = Y * $viewImgHeight / $imgHeight;
+
+            $("#bigView img").css({ "left": scrollX * -1, "top": scrollY * -1 });
+
+            $("#bigView").css({ "top": 265, "left": $(".preview").offset().left + $(".preview").width() + 15 });
+
+
+
+            return { left: X, top: Y };
+
+        }
+
+    });
+
+</script>
+  

@@ -1,0 +1,126 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MOZAR</title>
+    <script src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+      .wrong{
+            margin-left: 23px;
+            font-size:10px;
+        		font-weight:bold;
+            color:#ff0000;
+        }
+        .correct{
+            margin-left: 23px;
+            font-size:10px;
+            color:#00ff00;
+        }
+    </style>
+</head>
+<body bgcolor="#f6f6f6" style="width: 100%;height: 100%"onload="check()">
+
+<img src="__ROOT__/public/images/注册页背景.jpg" style="width: 100%;height: 400px;margin-top: 150px;">
+<div style="width: 400px;height: 400px;background-color: #ffffff;position: absolute;top: 50%;margin-top: -200px;margin-left: -200px;left: 35%;border: 1px solid lightgrey">
+    <img src="__ROOT__/public/images/logo.PNG"><br>
+    <form name="form1" onsubmit="check()">
+        <div style="margin-left: 30px;margin-top: 30px"><b style='font-family: "arial", "微软雅黑";'>账号：</b><input type="text" name="username" id="username" placeholder=" 请输入账号"  maxlength="16" style="width: 250px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 30px"><b style='font-family: "arial", "微软雅黑";'>密码：</b><input type="password" name="password" id="password" placeholder=" 请输入密码"  maxlength="16" style="width: 250px;height: 30px"><span></span></div>
+        <div style="margin-left: 30px;margin-top: 30px"><b style='font-family: "arial", "微软雅黑";float: left'>验证：</b><input type="text" name="checkCode" id="yzm" placeholder=" 请输入验证码" maxlength="4"style="width: 150px;height: 30px;float: left"></div>
+        <div style="width: 80px;height: 30px;background-color: lightgrey;float: left;margin-left: 20px"><img id="myImg" src="{:U('Login/showcode')}" onclick="changeImage()" style="cursor:pointer;"title="看不清换一张" alt="看不清换一张"  align="middle"/></div>
+        <input type="submit" style='width: 280px;height: 40px;background-color: #e03550;float: left;margin-left: 45px;margin-top: 40px;font-family: "arial", "微软雅黑";color: #ffffff;line-height: 40px;text-align: center;cursor: pointer;border: 1px solid #ffffff' value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
+    </form>
+    <a href="__APP__/Register/index" style='float: left;width: 100px;mdargin-top: 10px;margin-left: 135px;text-align: center;color: #e03550;font-family: "arial", "微软雅黑"'>立刻注册</a>
+</div>
+<script>
+    var fobj = document.form1; //获取表单对象
+    var uobj = document.getElementById("username"); //获取两个输入框对象
+    var uspan = getSpan(uobj); //获取username后面的span标签对象
+    var pobj = document.getElementById("password");
+    var pspan = getSpan(pobj);
+    var yobj = document.getElementById("yzm");
+    var yspan = getSpan(yobj);
+    var uflag = false; //用于记录用户名值是否正确
+    var pflag = false; //用于记录密码值是否正确
+    var yflag = false; //用于验证码值是否正确
+    function getSpan(obj){  
+        while(true){
+            if(obj.nodeName=="SPAN"){
+                return obj;
+            }else{
+                obj = obj.nextSibling; 
+            }
+        }
+    }
+    function check(){  //自定义函数check完成form表单验证和提交
+        uobj.onfocus = function(){
+            if(uobj.value==""){
+                uflag = false;
+            }
+        }
+        uobj.onblur = function(){
+            if(uobj.value==""){
+                uspan.innerHTML="X";
+                uspan.className = "wrong";
+                uflag = false;
+            }else if(uobj.value.length<6){
+                uspan.innerHTML="X";
+                uspan.className="wrong";
+                uflag = false;
+            }else{
+                uspan.innerHTML="正确";
+                uspan.className = "correct";
+                uflag = true;
+            }
+        }
+        pobj.onfocus = function(){
+            if(pobj.value==""){
+                pflag = false;
+            }
+        }
+        pobj.onblur = function(){
+            if(pobj.value==""){
+                pspan.innerHTML="X";
+                pspan.className = "wrong";
+                pflag = false;
+            }else if(pobj.value.length<6){
+                pspan.innerHTML="X";
+                pspan.className="wrong";
+                pflag = false;
+            }else{
+                pspan.innerHTML="正确";
+                pspan.className = "correct";
+                pflag = true;
+            }
+        }
+        yobj.onfocus = function(){
+            if(yobj.value==""){
+                yflag = false;
+            }
+        }
+        yobj.onblur = function(){
+            if(yobj.value==""){
+                yspan.innerHTML="X";
+                yspan.className = "wrong";
+                yflag = false;
+            }else{
+                yspan.innerHTML="";
+                yspan.className = "correct";
+                yflag = true;
+            }
+        }
+        if(uflag==true && pflag==true ){
+            fobj.action="__APP__/Login/checkLogin.html";
+            fobj.method="post";
+            fobj.submit();
+        }
+    }
+    function changeImage(){
+        document.getElementById("myImg").src="__APP__/Login/showcode?id="+new Date();
+    }
+</script>
+</body>
+</html>

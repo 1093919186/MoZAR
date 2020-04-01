@@ -1,0 +1,180 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MOZAR</title>
+    <script src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .list{
+            position: fixed;
+        }
+        .list li{
+            width: 250px;
+            height: 30px;
+            background-color: rgba(240,240,240,0.9);
+            line-height: 30px;
+            text-align: center;
+            color: #262728;
+            font-family: "arial", "微软雅黑";
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .list li:hover{
+            background-color: #e03550;
+        }
+    </style>
+    <script>
+        $(function(){
+
+
+            $('.close').click(function(){
+                $('.updatekuang').slideUp();
+            })
+            $('.update').click(function(){
+                $('.updatekuang').slideDown();
+            })
+            $('.mydd').click(function(){
+                $('.mydd2').slideDown();
+            })
+            $('.myds').click(function(){
+                $('.myds2').slideDown();
+            })
+            $('.xfjl').click(function(){
+                $('.xfjl2').slideDown();
+            })
+            $('.myxx').click(function(){
+                $('.myxx2').slideDown();
+            })
+        })
+    </script>
+</head>
+<body>
+
+<!--header  -->
+
+<include file="public:header" />
+
+<div style="width: 1200px;height: auto;margin: 20px auto">
+    <div style="width: 250px;height: auto;float: left">
+        <ul class="list" style="list-style: none">
+            <li class="myinform">个人信息</li>
+            <li class="mydd">我的订单</li>
+            <li class="myds">我的代售</li>
+            <li class="myxx">我的消息</li>
+        </ul>
+    </div>
+
+    <div style="width: 900px;height: auto;background-color: rgba(240,240,240,0.9);float: right;margin-left: 50px">
+        <div style="width: 100%;height: 30px;line-height: 30px;background-color: #e03550;"><b style='font-family: "arial", "微软雅黑";font-size: 15px;margin-left: 20px;color: #ffffff'>个人信息</b></div>
+        <div style="width: 700px;height: auto;margin-left: 30px;margin-top: 20px;float: left">
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728'>账号:{$userinfo.username}</b><br><br>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728'>关联银行卡:{$userinfo.bankid}</b><br><br>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;float: left;margin-right: 30px'>姓名:{$userinfo.truename}</b>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;float: left;margin-right: 30px'>性别:{$userinfo.sex}</b>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;float: left;margin-right: 30px'>身高:{$userinfo.height}</b>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;float: left;margin-right: 30px'>体重:{$userinfo.weight}</b><br><br>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;margin-right: 30px'>地址:{$userinfo.addr}<k style="color:#e03550;margin-left: 15px">(收货)</k></b><br><br>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;margin-right: 30px'>电话:{$userinfo.telephone}</b>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;margin-right: 30px'>微信:{$userinfo.wechat}</b>
+            <b style='font-family: "arial", "微软雅黑";font-size: 15px;color: #262728;margin-right: 30px'>QQ:{$userinfo.qq}</b><br><br>
+        </div>
+        <a class="update" style='width: 80px;height: 30px;border: 1px solid #e03550;float: left;margin-top: 20px;margin-left: 70px;color:#e03550;line-height: 30px;text-align: center;font-family: "arial", "微软雅黑";cursor: pointer'>修改信息</a>
+    </div>
+
+    <div style="width: 900px;height: auto;background-color: rgba(240,240,240,0.9);float: right;margin-left: 50px;margin-top: 20px;display: none" class="mydd2">
+        <div style="width: 100%;height: 30px;line-height: 30px;background-color: #e03550;"><b style='font-family: "arial", "微软雅黑";font-size: 15px;margin-left: 20px;color: #ffffff'>我的订单</b></div>
+        <foreach name="orders" item="v">
+        <div style="width: 850px;height: 40px;border-bottom: 1px solid #e03550;margin: 5px auto">
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.id}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.name}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.placename}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;margin-right: 30px'>{$v.saleprice}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;float: right'>{$v.state}</b>
+        </div>
+        </foreach>
+    </div>
+
+    <div style="width: 900px;height: auto;background-color: rgba(240,240,240,0.9);float: right;margin-left: 50px;margin-top: 20px;display: none" class="myds2">
+        <div style="width: 100%;height: 30px;line-height: 30px;background-color: #e03550;"><b style='font-family: "arial", "微软雅黑";font-size: 15px;margin-left: 20px;color: #ffffff'>我的代售</b></div>
+        <foreach name="daishou" item="v">
+        <div style="width: 850px;height: 40px;border-bottom: 1px solid #e03550;margin: 5px auto">
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.id}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.name}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.placename}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;margin-right: 30px'>{$v.saleprice}</b>
+            <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;float: right'>{$v.state}</b>
+        </div>
+        </foreach>
+    </div>
+
+    <div style="width: 900px;height: auto;background-color: rgba(240,240,240,0.9);float: right;margin-left: 50px;margin-top: 20px;display: none" class="xfjl2">
+        <div style="width: 100%;height: 30px;line-height: 30px;background-color: #e03550;"><b style='font-family: "arial", "微软雅黑";font-size: 15px;margin-left: 20px;color: #ffffff'>消费记录</b></div>
+        <div>
+            <div style="width: 850px;height: 40px;border-bottom: 1px solid #e03550;margin: 5px auto">
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>201612131047</b>
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>chocolate卫衣</b>
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>广州代售点</b>
+                <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;margin-right: 30px'>199</b>
+                <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;float: right'>已成交</b>
+            </div>
+
+            <div style="width: 850px;height: 40px;border-bottom: 1px solid #e03550;margin: 5px auto">
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>201612131047</b>
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>chocolate卫衣</b>
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>广州代售点</b>
+                <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;margin-right: 30px'>199</b>
+                <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;float: right'>已成交</b>
+            </div>
+
+            <div style="width: 850px;height: 40px;border-bottom: 1px solid #e03550;margin: 5px auto">
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>201612131047</b>
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>chocolate卫衣</b>
+                <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>广州代售点</b>
+                <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;margin-right: 30px'>199</b>
+                <b style='font-family: "arial", "微软雅黑";color: #e03550;line-height: 40px;float: right'>已成交</b>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="width: 900px;height: auto;background-color: rgba(240,240,240,0.9);float: right;margin-left: 50px;margin-top: 20px;display: none" class="myxx2">
+        <div style="width: 100%;height: 30px;line-height: 30px;background-color: #e03550;"><b style='font-family: "arial", "微软雅黑";font-size: 15px;margin-left: 20px;color: #ffffff'>我的消息</b></div>
+        <foreach name="message" item="v">
+        <div style="width: 850px;height: 40px;border-bottom: 1px solid #e03550;margin: 5px auto">
+            <b style='font-family: "arial", "微软雅黑";color: #262728;line-height: 40px;margin-right: 30px'>{$v.content}</b>
+        </div>
+        </foreach>
+    </div>
+</div>
+
+<div style="width: 500px;height: 600px;background-color: #ffffff;position: absolute;top: 50%;margin-top: -300px;left: 50%;margin-left: -250px;display: none" class="updatekuang">
+    <img src="__ROOT__/public/images/logo.PNG">
+    <div style="margin-left: 80px;margin-top: 20px"><b style='font-family: "arial", "微软雅黑";'>账号：1093919186</b></div>
+    <form method="post" action="__APP__/Person/ajax/id/{$userinfo.id}">
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>身高：</b><input name="height" type="text" style="width: 80px;height: 30px" value="{$userinfo.height}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 30px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>体重：</b><input name="weight" type="text" style="width: 80px;height: 30px" value="{$userinfo.weight}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>性别：</b><input name="sex" type="text" style="width: 80px;height: 30px" value="{$userinfo.sex}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 30px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>姓名：</b><input name="truename" type="text" style="width: 80px;height: 30px" value="{$userinfo.truename}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";float: left'>绑定银行卡：</b><input name="bankid" type="text" style="width: 240px;height: 30px;float: left" value="{$userinfo.bankid}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";float: left'>收货地址：</b><input name="addr" type="text" style="width: 255px;height: 30px" value="{$userinfo.addr}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>电话：</b><input name="telephone" type="text" style="width: 288px;height: 30px" value="{$userinfo.telephone}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>QQ：</b><input name="qq" type="text" style="width: 295px;height: 30px" value="{$userinfo.qq}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>微信：</b><input name="wechat" type="text" style="width: 288px;height: 30px" value="{$userinfo.wechat}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'></k></div>
+        <div style="margin-left: 80px;margin-top: 20px;float: left"><b style='font-family: "arial", "微软雅黑";'>密码：</b><input name="userpwd" type="text" style="width: 230px;height: 30px" value="{$userinfo.userpwd}"><k style='font-family: "arial", "微软雅黑";font-size: 10px;color:#e03550;margin-left: 20px'>密码不合法</k></div>
+        <input type="submit" style='border: 1px solid #e03550;width:200px;height: 30px;margin-left: 80px;margin-top: 20px;background-color: #e03550;color: #ffffff;font-family: "arial", "微软雅黑";text-align: center;font-size: 20px;float: left' value="修&nbsp;&nbsp;改">
+    </form>
+    <a class="close" style='font-family: "arial", "微软雅黑";color: #e03550;float: left;margin-top: 25px;margin-left: 50px;text-decoration: underline;cursor: pointer'>关闭</a>
+</div>
+
+<div style="width: 100%;height: 330px;background-color: #262728;margin-top: 30px;float: left">
+    <div style="width: 1300px;height: 300px ;margin: 0px auto;">
+        <img src="__ROOT__/public/images/首页衣服/底部.PNG" style="float: left">
+        <img src="__ROOT__/public/images/首页衣服/底部2.PNG" style="float: left;margin-left: 50px">
+    </div>
+</div>
+</body>
+</html>

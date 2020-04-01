@@ -1,0 +1,231 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MOZAR</title>
+    <link rel="stylesheet" href="__ROOT__/public/css/jquery.bigautocomplete.css" type="text/css" />
+
+    <script src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/public/js/jquery.1.4.2-min.js"></script>
+
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/public/js/jquery.bigautocomplete.js"></script>
+
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #navcontent li{
+            display: inline-block;
+        }
+    </style>
+    <script>
+       $(function() {
+           var i = 0;
+
+           $('#fabu').hover(function () {
+               $('#fabu').css('background-color', 'lightgrey')
+           }, function () {
+               $('#fabu').css('background-color', 'rgba(240,240,240,0.9)')
+           })
+           $('#navcontent li').hover(function () {
+               $(this).css('color', 'darkred')
+           }, function () {
+               $(this).css('color', 'rgb(41,36,33)')
+           })
+
+           $('.women').mouseenter(function () {
+               $('#fenlei').slideDown();
+               $('.fl').slideDown();
+               i = 0;
+               $(".fenleilb").eq(i).fadeIn(1000).siblings().fadeOut();
+           })
+
+           $('.men').mouseenter(function () {
+               $('#fenlei').slideDown();
+               $('.fl').slideDown();
+               i = 1;
+               $(".fenleilb").eq(i).fadeIn(1000).siblings().fadeOut();
+           })
+           $('.xie').mouseenter(function () {
+               i = 2;
+               $(".fenleilb").eq(i).fadeIn(1000).siblings().fadeOut();
+               $('#fenlei').slideDown();
+               $('.fl').slideDown();
+           })
+           $('.bag').mouseenter(function () {
+               i = 3;
+               $(".fenleilb").eq(i).fadeIn(1000).siblings().fadeOut();
+               $('#fenlei').slideDown();
+               $('.fl').slideDown();
+           })
+
+           $('#fenlei').mouseenter(function () {
+               $('#fenlei').slideDown();
+               $('.fl').slideDown();
+           })
+
+           $('#fenlei').mouseleave(function () {
+               $('#fenlei').slideUp();
+               $('.fl').slideUp();
+           })
+
+           $('.2jifenlei').hover(function () {
+               $(this).css('color', 'darkred')
+           }, function () {
+               $(this).css('color', 'grey')
+           })
+
+           $("#tt").bigAutocomplete({
+               width:497,
+               data:[
+                   {title:"巧克力男装外套"},
+                   {title:"耐克男装外套"},
+                   {title:"阿迪达斯女装外套"},
+                   {title:"万斯潮鞋"},
+                   {title:"阿迪达斯男装裤子"},
+                   {title:"普拉达女装裤子"},
+                   {title:"彪马男装外套"},
+                   {title:"阿迪达斯女装外套"},
+                   {title:"范思哲女装裤子"},
+                   {title:"巴宝莉女装鞋子"},
+                   {title:"耐克女装外套"},
+                   {title:"阿迪达斯女装裤子"},
+                   {title:"路易威登箱包手提包"},
+                   {title:"香奈儿箱包手提包"},
+                   {title:"彪马潮鞋"},
+                   {title:"阿迪达斯潮鞋"},
+                   {title:"匡威潮鞋"},
+               ],
+/*               callback:function(data){
+                   alert(data.title);
+               }*/
+           });
+       })
+    </script>
+</head>
+<body>
+
+<div id="top" style="width: 1200px;height: 150px;margin: 0 auto">
+    <a href="__APP__/Index/index"><img src="__ROOT__/public/images/logo.PNG" style="margin-top: 25px;float: left"></a>
+    <form method="post" action="__APP__/Search/index" name="searchform" id="searchform" class="searchinfo">
+        <input id="tt" class="text" type="text" style="float: left;width: 500px;height: 55px;margin-left: 80px;margin-top: 45px;border: 1px solid lightgray;border-right: none;background-color: rgba(240,240,240,0.9);font-size: 20px;color: lightgrey;" name="search" placeholder="search...">
+        <input class="button" type="submit" style='width: 55px;height: 55px;border: 1px solid lightgray;border-left:none ;background-color: rgba(240,240,240,0.9);margin-top: 45px;cursor: pointer;font-family: "arial", "微软雅黑";float: left;
+             color: rgb(41,36,33);font-size: 30px' value="o">
+    </form>
+    <a href="__APP__/Fabu/index" id="fabu" style='width: 100px;height: 55px;background-color: rgba(240,240,240,0.9);float: right;margin-top: 45px;color:  rgb(41,36,33);font-family: "arial", "微软雅黑";line-height: 55px;text-align: center;text-decoration: none;margin-right: 10px'>发布物品</a>
+</div>
+
+<div style="width: 100%;height: 60px;background-color: rgba(240,240,240,0.9);border-bottom: 1px solid lightgrey;border-top:2px solid rgba(210,210,210,0.7)">
+    <div style="width: 1200px;height: 40px;margin: 0 auto">
+        <ul id="navcontent">        		
+            <a href="" style="text-decoration: none"><li class="women" style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-right: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold '>女装</li></a>
+            <a href="" style="text-decoration: none"><li class="men" style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-right: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold '>男装</li></a>
+            <a href="" style="text-decoration: none"><li class="xie" style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-right: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold '>潮鞋</li></a>
+            <a href="" style="text-decoration: none"><li class="bag" style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-right: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold '>箱包</li></a>
+
+            <if condition="$_SESSION['user']">
+            <a href="__APP__/Login/index" style="text-decoration: none"><li style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-left: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold;float: right '>退出</li></a>
+            <a href="__APP__/Person/index/id/{$_SESSION['user']['id']}" style="text-decoration: none"><li style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-left: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold ;float: right'><php>echo $_SESSION['user']['truename']</php></li></a>
+            <else/>
+                <a href="__APP__/Register/index" style="text-decoration: none"><li style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-left: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold;float: right '>注册</li></a>
+                <a href="__APP__/Login/index" style="text-decoration: none"><li style='width: 90px;height: 40px;background-color: rgba(240,240,240,0.9);line-height: 40px;text-align: center;font-size: 15px;font-family: "arial", "微软雅黑";border-left: 1px solid rgba(210,210,210,0.7);margin-top: 10px;color:rgb(41,36,33);font-weight: bold ;float: right'>登录</li></a>
+            </if>
+
+        </ul>
+    </div>
+</div>
+
+<!--导航栏分类-->
+<div style="width: 100%;height: auto;position: absolute;z-index: 2">
+    <div id="fenlei" style="width: 1200px;height: 200px;margin: 0 auto;display: none;">
+        <div class="fl" style="width: 600px;height: 200px;overflow: hidden;position: absolute;display: none;">
+            <div  style="width: 2400px;height: 200px;position: absolute;">
+                <!-- 第一个盒子 -->
+                <div class="fenleilb"style="width: 600px;height: 200px;background-color:rgb(250,250,250);float: left">
+                		<foreach name="brand" item='v'>
+                			<if condition="$v['lev'] eq 1 and $v['pid'] eq 1">
+                    <div style="width: 100px;height: 150px;margin-top: 40px;margin-left: 30px;float: left">
+                        <k style='font-family: "arial", "微软雅黑";'>{$v.chiname}</k> 
+                                 
+                        <ul style="margin-top: 20px;list-style: none;">  
+                        			 <foreach name="brand" item="k">
+                        			 		<if condition="$k['lev'] eq 2 and $k['pid'] eq $v['id']">                                                     	 
+                            <a  href="" style="text-decoration: none"><li class="2jifenlei"style='color:grey;margin-bottom: 5px;font-family: "arial", "微软雅黑"'>{$k.chiname}</li></a>                                                                          	                      		                       		
+                                  		</if>
+                                  </foreach>
+                        </ul>                      
+                    </div>
+                       </if>   
+                    </foreach>                  
+                    <img src="__ROOT__/public/images/首页/女装.PNG" style="width: 150px;height: 150px;margin-top: 25px;margin-left: 20px">
+
+                </div>
+				<!-- 第二个盒子 -->
+                <div class="fenleilb"style="width: 600px;height: 200px;background-color: rgb(250,250,250);float: left">
+                    <foreach name="brand" item='v'>
+                			<if condition="$v['lev'] eq 1 and $v['pid'] eq 2">
+                    <div style="width: 100px;height: 150px;margin-top: 40px;margin-left: 30px;float: left">
+                        <k style='font-family: "arial", "微软雅黑";'>{$v.chiname}</k> 
+                                 
+                        <ul style="margin-top: 20px;list-style: none;">  
+                        			 <foreach name="brand" item="k">
+                        			 		<if condition="$k['lev'] eq 2 and $k['pid'] eq $v['id']">                                                     	 
+                            <a  href="" style="text-decoration: none"><li class="2jifenlei"style='color:grey;margin-bottom: 5px;font-family: "arial", "微软雅黑"'>{$k.chiname}</li></a>                                                                          	                      		                       		
+                                  		</if>
+                                  </foreach>
+                        </ul>                      
+                    </div>
+                       </if>   
+                    </foreach>
+
+                    <img src="__ROOT__/public/images/首页/男装.PNG" style="width: 150px;height: 150px;margin-top: 25px;margin-left: 20px">
+                </div>
+			  <!-- 第三个盒子 -->
+                <div class="fenleilb"style="width: 600px;height: 200px;background-color: rgb(250,250,250);float: left">
+                    <foreach name="brand" item='v'>
+                			<if condition="$v['lev'] eq 1 and $v['pid'] eq 3">
+                    <div style="width: 100px;height: 150px;margin-top: 40px;margin-left: 30px;float: left">
+                        <k style='font-family: "arial", "微软雅黑";'>{$v.chiname}</k> 
+                                 
+                        <ul style="margin-top: 20px;list-style: none;">  
+                        			 <foreach name="brand" item="k">
+                        			 		<if condition="$k['lev'] eq 2 and $k['pid'] eq $v['id']">                                                     	 
+                            <a  href="" style="text-decoration: none"><li class="2jifenlei"style='color:grey;margin-bottom: 5px;font-family: "arial", "微软雅黑"'>{$k.chiname}</li></a>                                                                          	                      		                       		
+                                  		</if>
+                                  </foreach>
+                        </ul>                      
+                    </div>
+                       </if>   
+                    </foreach>
+
+                    <img src="__ROOT__/public/images/首页/鞋.PNG" style="width: 150px;height: 150px;margin-top: 25px;margin-left: 20px">
+                </div>
+			 <!-- 第四个盒子 -->
+                <div class="fenleilb"style="width: 600px;height: 200px;background-color: rgb(250,250,250);float: left">
+                    <foreach name="brand" item='v'>
+                			<if condition="$v['lev'] eq 1 and $v['pid'] eq 4">
+                    <div style="width: 100px;height: 150px;margin-top: 40px;margin-left: 30px;float: left">
+                        <k style='font-family: "arial", "微软雅黑";'>{$v.chiname}</k> 
+                                 
+                        <ul style="margin-top: 20px;list-style: none;">  
+                        			 <foreach name="brand" item="k">
+                        			 		<if condition="$k['lev'] eq 2 and $k['pid'] eq $v['id']">                                                     	 
+                            <a  href="" style="text-decoration: none"><li class="2jifenlei"style='color:grey;margin-bottom: 5px;font-family: "arial", "微软雅黑"'>{$k.chiname}</li></a>                                                                          	                      		                       		
+                                  		</if>
+                                  </foreach>
+                        </ul>                      
+                    </div>
+                       </if>   
+                    </foreach>
+
+                    <img src="__ROOT__/public/images/首页/包.PNG" style="width: 150px;height: 150px;margin-top: 25px;margin-left: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--导航栏分类end-->
+
+</body>
+</html>

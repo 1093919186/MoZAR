@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__ROOT__/public/css/Admin/admin.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+</head>
+<body>
+<style>
+    tr td{
+        border: 1px solid lightgrey;
+        height: 30px;
+    }
+</style>
+
+<!-- 网站的头 -->
+<include file="Public:header"/>
+<!-- 当前位置 -->
+<div class="locationDiv">&nbsp;: 后台管理 : 修改用户</div>
+<!-- 正文内容 -->
+<div class="mainDiv clear">
+    <!-- 左侧树状列表 -->
+    <include file="Public:left"/>
+    <!-- 右侧页面内容 -->
+    <div class="rightDiv">
+        <br>
+        <table style="width: 600px;height: auto;border: 1px solid lightgrey;margin: 10px auto;border-collapse:collapse">
+            <foreach name="admin" item="v">
+                <tr><td>{$v.adminname}</td><td><a href="__APP__/AddUser/delete/id/{$v.id}">删除</a></td></tr>
+            </foreach>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

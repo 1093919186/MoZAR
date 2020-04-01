@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>后台管理系统</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__ROOT__/public/css/Admin/admin.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/library/kindeditor-4.1.4/kindeditor-all-min.js"></script>
+    <script type="text/javascript">
+        var editor;
+        KindEditor.ready(function(e){
+            editor = e.create("[name=content]",{
+                width:"700px",
+                height:"260px"
+            });
+        });
+        //表单验证
+        function checkAdd()
+        {
+            if(document.frm.title.value == "")
+            {
+                alert("请输入新闻标题！");
+                document.frm.title.focus();
+                return false;
+            }
+            else if(editor.html() == "")
+            {
+                alert("请输入新闻内容！");
+                editor.focus();
+                return false;
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        input {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            border: 0px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100%;
+            border: 0px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 网站的头 -->
+    <include file="Public:header" />
+    <!-- 当前位置 -->
+    <div class="locationDiv">&nbsp;: 后台管理 : 添加新闻</div>
+    <!-- 正文内容 -->
+    <div class="mainDiv clear">
+        <!-- 左侧树状列表 -->
+        <include file="Public:left" />
+        <!-- 右侧页面内容 -->
+        <div class="rightDiv">
+            <form action="__APP__/Fabu/save/id/{$id}" method="POST" onsubmit="check()">
+                <table border="1" style="border-collapse:collapse; border-spacing:0px; text-align:center;height:450px;width:400px;margin:0 auto;">
+                    <tr style="display:none;">
+                        <td>发布人ID: </td>
+                        <td>
+                            <input type="text" name="userid" value="{$arr.userid}">
+                        </td>
+                    </tr>
+                    <tr  style="display: none">
+                        <td>品牌: </td>
+                        <td>
+                            <input type="text" name="brandid" value="" id="brandid">
+                        </td>
+                    </tr>
+                    <tr style="display:none;">
+                        <td>代售点ID: </td>
+                        <td>
+                            <input type="text" name="placeid" value="{$arr.placeid}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>产品名: </td>
+                        <td>
+                            <input type="text" name="name" value="{$arr.name}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>身高:</td>
+                        <td> <input type="text" name="height" value="{$arr.height}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>体重:</td>
+                        <td> <input type="text" name="weight" value="{$arr.weight}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>买时:</td>
+                        <td> <input type="text" name="buytime" value="{$arr.buytime}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>出售原因:</td>
+                        <td style="padding:0px;margin:0px;width:330px;height:60px;"><textarea name="result" style="width:330px;height:60px;resize:none;">{$arr.result}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>品牌:</td>
+                        <td>
+                            <select style="width: 100px;" id="pre" onchange="chg(this);">
+            <option value="-1">请选择</option>
+        </select>
+                            <select style="width: 100px;" id="city" onchange="chg2(this)">
+        <option value="-1">请选择</option>
+        </select>
+                            <select style="width: 100px;" id="area" onchange="check()">
+        <option value="-1">请选择</option>
+        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>发布姓名: </td>
+                        <td style="text-align:left;"><span>{$truename}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>买价: </td>
+                        <td><input type="text" name="buyprice" value="{$arr.buyprice}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>卖价: </td>
+                        <td><input type="text" name="saleprice" value="{$arr.saleprice}">
+                        </td>
+                    </tr>
+                    <tr style="display:none;">
+                        <td>状态:</td>
+                        <td>
+                            <input type="text" name="state" value="正在出售">
+                            <tr>
+                                <td colspan="2" style="width:70px;height:50px;padding:0px;margin:0px;">
+                                    <input type="submit" value="发布产品" style="display:inline-block; height:50px;width:80px;border-color:#808080;border-left:1px solid #808080;border-right:1px solid #808080;cursor:pointer;">
+                                </td>
+                            </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+         //声明省
+        var pres = ["女装", "男装", "潮鞋","箱包"]; //直接声明Array
+         //声明市
+        var cities = [
+            ["外套", "裤子", "鞋子"],
+            ["外套", "裤子","鞋子"],
+            ["商务鞋","运动鞋", "韩版鞋"],
+            ["手提包","钱包", "旅行箱"],
+        ];
+        var areas = [
+                [
+                    ["耐克17", "匡威18", "万斯19","阿迪达斯20"],
+                    ["耐克21", "阿迪达斯22", "范思哲23","普拉达24"],
+                    ["卡尔文.克莱恩25", "巴宝莉26", "切瑞蒂27","华伦天奴28"]
+                ],
+                [
+                    ["巧克力29", "耐克30", "阿迪达斯31","彪马32"],
+                    ["耐克33", "李维斯34", "阿迪达斯35","牛仔裤36"],
+                    ["耐克37", "万斯38","阿迪达斯39","匡威40"]
+                ],
+                [
+                    ["耐克41", "彪马42", "阿迪达斯43", "匡威44"],
+                    ["耐克45", "彪马46", "阿迪达斯47", "李宁48"],
+                    ["耐克49", "彪马50", "阿迪达斯51", "匡威52"]
+                ],
+                [
+                 ["芬迪53", "蔻驰54", "路易威登55", "香耐尔56"],
+                 ["路易威登57", "蔻驰58", "耐克59", "蔻驰60"],
+                 ["新秀丽61", "路易威登62", "兰资63", "外交官64"]
+             ],
+            ]
+            //设置一个省的公共下标
+        var pIndex = -1;
+        var preEle = document.getElementById("pre");
+        var cityEle = document.getElementById("city");
+        var areaEle = document.getElementById("area");
+         //先设置省的值
+        for (var i = 0; i < pres.length; i++) {
+            //声明option.<option value="pres[i]">Pres[i]</option>
+            var op = new Option(pres[i], i);
+            //添加
+            preEle.options.add(op);
+        }
+        function chg(obj) {
+            if (obj.value == -1) {
+                cityEle.options.length = 0;
+                areaEle.options.length = 0;
+            }
+            //获取值
+            var val = obj.value;
+            pIndex = obj.value;
+            //获取ctiry
+            var cs = cities[val];
+            //获取默认区
+            var as = areas[val][0];
+            //先清空市
+            cityEle.options.length = 0;
+            areaEle.options.length = 0;
+            for (var i = 0; i < cs.length; i++) {
+                var op = new Option(cs[i], i);
+                cityEle.options.add(op);
+            }
+            for (var i = 0; i < as.length; i++) {
+                var op = new Option(as[i], i);
+                areaEle.options.add(op);
+            }
+        }
+        function chg2(obj) {
+            var val = obj.selectedIndex;
+            var as = areas[pIndex][val];
+            areaEle.options.length = 0;
+            for (var i = 0; i < as.length; i++) {
+                var op = new Option(as[i], i);
+                areaEle.options.add(op);
+            }
+        }
+     function check(){
+        var  obj=document.getElementById("area");
+        for (i=0;i<obj.length;i++) {
+           if (obj[i].selected== true ) {
+           var text=obj[i].value;
+         }
+        for (i=0;i<obj.length;i++) {
+            if (obj[i].selected== true ) {
+            var text=obj[i].text;
+            var obj = document.getElementById('brandid');
+            obj.value=text;
+          }
+          }
+        }
+     }
+    </script>

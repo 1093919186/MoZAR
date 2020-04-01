@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__ROOT__/public/css/Admin/admin.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/library/kindeditor-4.1.4/kindeditor-all-min.js"></script>
+    <script type="text/javascript">
+        var editor;
+        KindEditor.ready(function(e){
+            editor = e.create("[name=content]",{
+                width:"700px",
+                height:"260px"
+            });
+        });
+        //表单验证
+        function checkAdd()
+        {
+            if(document.frm.title.value == "")
+            {
+                alert("请输入新闻标题！");
+                document.frm.title.focus();
+                return false;
+            }
+            else if(editor.html() == "")
+            {
+                alert("请输入新闻内容！");
+                editor.focus();
+                return false;
+            }
+        }
+    </script>
+    <style>
+        tr td{
+            border: 1px solid lightgrey;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<!-- 网站的头 -->
+<include file="Public:header"/>
+<!-- 当前位置 -->
+<div class="locationDiv">&nbsp;: 后台管理 : 添加新闻</div>
+<!-- 正文内容 -->
+<div class="mainDiv clear">
+    <!-- 左侧树状列表 -->
+    <include file="Public:left"/>
+    <!-- 右侧页面内容 -->
+    <div class="rightDiv">
+        <br>
+        <table style="width: 600px;height: auto;border: 1px solid lightgrey;margin: 10px auto;border-collapse:collapse">
+             <foreach name="message" item="v">
+             <tr><td>{$v.content}</td><td><a href="__APP__/Message/delete/id/{$v.id}">删除</a></td></tr>
+             </foreach>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

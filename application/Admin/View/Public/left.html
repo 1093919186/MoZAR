@@ -1,0 +1,64 @@
+<div class="leftDiv"><script type=text/javascript src="__ROOT__/public/js/dtree.js"></script>
+  <script src="__ROOT__/public/js/jquery-3.1.0.min.js"></script>
+<style>
+  *{
+    padding: 0px;
+    margin: 0px;
+  }
+  ul{
+    display: none;
+  }
+</style>
+<script>
+  $(function(){
+    $("#图片管理").mouseenter(function(){
+      $("#图片管理列表").slideDown();
+    })
+    $("#图片管理列表").mouseenter(function(){
+      $("#图片管理列表").slideDown(0);
+    })
+    $("#图片管理列表").mouseleave(function(){
+      $("#图片管理列表").slideUp();
+    })
+    $("#图片管理").mouseleave(function(){
+      $("#图片管理列表").slideUp(0);
+    })
+  })
+</script>
+<script  type=text/javascript>
+  function hello()
+  {
+    d = new dTree('d');
+
+    d.add(0,-1,'后台管理','');
+
+    d.add(2,0,'代售管理',"{:U('Daishou/index')}");
+
+    d.add(3,0,'消息管理','');
+    d.add(31,3,'发送消息','{:U('Message/send')}');
+    d.add(32,3,'消息管理','{:U('Message/index')}');
+
+    d.add(4,0,'用户管理','');
+    d.add(41,4,'添加用户','{:U('AddUser/index')}');
+    d.add(42,4,'修改用户','{:U('AddUser/modify')}');
+
+    d.add(5,0,'快讯管理','');
+    d.add(51,5,'添加快讯','{:U('AddQuick/index')}');
+    d.add(52,5,'修改快讯','{:U('AddQuick/modify')}');
+
+    d.add(5,0,'返回首页','{:U('Index/index')}');
+
+    document.write(d);
+  }
+
+  hello();
+</script>
+<div style="width: 100%;height: 20px;background-color:#baeeff ;margin-top: 10px;line-height: 20px;text-align: center" id="图片管理">
+图片管理
+</div>
+<ul style="list-style: none;width: 100%;" id="图片管理列表">
+  <li style="line-height: 20px;text-align: center;width: 100%;height: 20px;background-color: #baeeff" ><a href="{:U('Indexpic/lunbo')}">广告轮播</a></li>
+  <li style="line-height: 20px;text-align: center;width: 100%;height: 20px;background-color: #baeeff" ><a href="{:U('Indexpic/index')}">首页图片管理</a></li>
+</ul>
+
+</div>
